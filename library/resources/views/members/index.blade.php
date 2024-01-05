@@ -34,13 +34,12 @@
 </div> --}}
 
 <div class="container">
-  <a class="btn btn-info mb-3 mt-3" href="/loan">+ Loan Record</a>
+  <a class="btn btn-info mb-3 mt-3" href="/members/create">+ New Member</a>
     <div class="row justify-content-center">
             <div class="card">
                 <div class="card-header">{{ __('Members') }}</div>
 
                 <div class="card-body">
-                    <a class="btn btn-primary" href="/members/create">+ Member</a>
                     <table class="table table-hover">
                         <tr>
                             <th>Name</th>
