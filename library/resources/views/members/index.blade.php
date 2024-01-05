@@ -34,9 +34,8 @@
 </div> --}}
 
 <div class="container">
-  <a class="btn btn-info" href="/loan">+ Loan Record</a>
+  <a class="btn btn-info mb-3 mt-3" href="/loan">+ Loan Record</a>
     <div class="row justify-content-center">
-        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Members') }}</div>
 
@@ -54,21 +53,33 @@
                                 <td>{{ $m->email }}</td>
                                 <td>{{ $m->phone }}</td>
                                 <td>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                    {{-- <div class="btn-group" role="group" aria-label="Basic example">
                                         <a class="btn btn-warning" href="/members/{{ $m->id }}/edit">Edit</a>
                                         <form action="/members/{{ $m->id }}" method="POST">
                                             @csrf
                                             @method('delete')
                                             <input type="submit" class="btn btn-danger" value="Delete">
                                         </form>
-                                    </div>
+                                    </div> --}}
+                                    <div class="row">
+                                      <div class="col">
+                                          <a class="btn btn-warning btn-block" href="/members/{{ $m->id }}/edit">Edit</a>
+                                      </div>
+                                      <div class="col">
+                                          <form action="/members/{{ $m->id }}" method="POST">
+                                              @csrf
+                                              @method('delete')
+                                              <input type="submit" class="btn btn-danger btn-block" value="Delete">
+                                          </form>
+                                      </div>
+                                  </div>
+                                  
                                 </td>
                             </tr>
                         @endforeach
                     </table>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 
