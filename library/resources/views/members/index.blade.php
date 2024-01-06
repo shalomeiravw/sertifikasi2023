@@ -34,7 +34,15 @@
 </div> --}}
 
 <div class="container">
-  <a class="btn btn-info mb-3 mt-3" href="/members/create">+ New Member</a>
+  <div class="d-flex justify-content-between">
+    <div class="pb-3">
+      <form class="d-flex mt-3" action="/members" method="get">
+        <input class="form-control me-1" type="search" name="keyword" value="{{ Request::get('keyword') }}" placeholder="Search a member's name" style="width: 500px;">
+        <button class="btn btn-secondary" type="submit">Search</button>
+      </form>
+    </div>
+    <a class="btn btn-info mb-3 mt-3" href="/members/create">+ New Member</a>
+  </div>
     <div class="row justify-content-center">
             <div class="card">
                 <div class="card-header">{{ __('Members') }}</div>

@@ -3,8 +3,15 @@
 @section('content')
 
 <div class="container">
-
-    <a class="btn btn-info mb-3 mt-3" href="/books/create">+ New Book</a>
+    <div class="d-flex justify-content-between">
+        <div class="pb-3">
+            <form class="d-flex mt-3" action="/books" method="get">
+            <input class="form-control me-1" type="search" name="keyword" value="{{ Request::get('keyword') }}" placeholder="Search a title, author, genre, or publication year" style="width: 500px;">
+            <button class="btn btn-secondary" type="submit">Search</button>
+            </form>
+        </div>
+        <a class="btn btn-info mb-3 mt-3" href="/books/create">+ New Book</a>
+    </div>
     <div class="row justify-content-center">
             <div class="card">
                 <div class="card-header">{{ __('Books') }}</div>
@@ -31,7 +38,7 @@
                                 <td class="align-middle">{{ $b->author }}</td>
                                 <td class="align-middle">{{ $b->genre }}</td>
                                 <td class="align-middle">{{ $b->year_publish }}</td>
-                                <td class="align-middle col-md-3">{{ $b->synopsis }}</td>
+                                <td class="align-middle col-md-2">{{ $b->synopsis }}</td>
                                 <td class="align-middle">{{ optional($b->member)->name }}</td>
                                 <td class="align-middle">
                                     <div class="d-flex justify-content-center" role="group" aria-label="Basic example">

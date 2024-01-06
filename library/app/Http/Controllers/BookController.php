@@ -8,10 +8,21 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function index(){
-        $book = Book::with('member')->get();
-        $member = Member::all();
-    
+    public function index(Request $request){
+        //search
+        $keyword = $request->keyword;
+        if(strlen($keyword)){
+            $book = Book::where('title', 'like', '%' . $keyword . '%')
+                        ->orWhere('author', 'like', '%' . $keyword . '%')
+                        ->orWhere('genre', 'like', '%' . $keyword . '%')
+                        ->orWhere('year_publish', 'like', '%' . $keyword . '%')
+                        ->get();
+            $member = [];
+        }else{
+            $book = Book::with('member')->get();
+            $book = Book::orderBy('title', 'asc')->get();
+            $member = Member::all();
+        }
         return view('books.index', compact('book', 'member'));
     }
     

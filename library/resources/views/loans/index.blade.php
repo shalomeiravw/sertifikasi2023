@@ -3,8 +3,15 @@
 @section('content')
 
 <div class="container">
-
-    <a class="btn btn-info mb-3 mt-3" href="/loans/create3">+ Loan</a>
+    <div class="d-flex justify-content-between">
+        <div class="pb-3">
+            <form class="d-flex mt-3" action="/loans" method="get">
+            <input class="form-control me-1" type="search" name="keyword" value="{{ Request::get('keyword') }}" placeholder="Search a member's name" style="width: 500px;">
+            <button class="btn btn-secondary" type="submit">Search</button>
+            </form>
+        </div>
+        <a class="btn btn-info mb-3 mt-3" href="/loans/create3">+ Loan</a>
+    </div>
     <div class="row justify-content-center">
             <div class="card">
                 <div class="card-header">{{ __('Loan Record') }}</div>
@@ -18,7 +25,7 @@
                             <th>Return Date</th>
                         </tr>
                         @foreach ($loan as $l)
-                            <tr>
+                            <tr @if($l->due_date <= now()->format('Y-m-d') && $l->return_date === null) class="table-danger" @endif>
                                 <td class="align-middle">{{ ($l->book)->title }}</td>
                                 <td class="align-middle">{{ ($l->member)->name }}</td>
                                 <td class="align-middle">{{ $l->loan_date }}</td>

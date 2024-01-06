@@ -9,11 +9,23 @@ use Illuminate\Http\Request;
 
 class LoanController extends Controller
 {
-    public function index(){
-        $loan = Loan::with(['member', 'book'])->get();
-        $member = Member::all();
-        $book = Book::all();
-
+    public function index(Request $request){
+        //search
+        $keyword = $request->keyword;
+        if(strlen($keyword)){
+            $loan = $loan = Loan::join('members', 'members.id', '=', 'loans.member_id')
+                                ->join('books', 'books.id', '=', 'loans.book_id')
+                                ->where('members.name', 'like', '%' . $keyword . '%')
+                                ->orWhere('books.title', 'like', '%' . $keyword . '%')
+                                ->get(['loans.*']);
+            $member = [];  
+            $book = Book::all(); 
+        }else{
+            $loan = Loan::with(['member', 'book'])->get();
+            $loan = Loan::orderBy('loan_date', 'desc')->get();
+            $member = Member::all();
+            $book = Book::all();
+        }
         return view('loans.index', compact('loan', 'member', 'book')); 
     }
 
@@ -112,6 +124,6 @@ class LoanController extends Controller
         $book->member_id = null;
         $book->save();
 
-        return redirect('/loans')->with('success', 'Book returned successfully.');
+        return redirect('/loans')->with('success', 'Book returned');
     }
 }

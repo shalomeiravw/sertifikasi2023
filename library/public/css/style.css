@@ -1,4 +1,4 @@
-.dropdown-menu{
+.dropdown{
     max-height: 200px;
     overflow-y: scroll;
 }
@@ -6,3 +6,7 @@
 .input-group-append {
     cursor: pointer;
   }
+
+.custom-search-bar {
+    width: 300px;
+}

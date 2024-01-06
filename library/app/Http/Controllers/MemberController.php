@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
-    public function index(){
-        $member = Member::all();
+    public function index(Request $request){
+        //search
+        $keyword = $request->keyword;
+        if(strlen($keyword)){
+            $member = Member::where('name', 'like', '%' . $keyword . '%')->get();
+        }else{
+            $member = Member::orderBy('name', 'asc')->get();
+        }
         return view('members.index', compact('member'));
     }
     public function create(){
