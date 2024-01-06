@@ -37,6 +37,17 @@
                     <a class="nav-link {{ request()->is('loans') ? 'active' : '' }}" href="/loans">Loans</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav justify-content-end" style="width: 100%">
+                    <li class="nav-item d-flex">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                        <a href="{{ route('logout') }}" class="nav-link text-body" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                            <span class="d-sm-inline d-none">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
                 </div>
             </nav>
             @yield('content')
