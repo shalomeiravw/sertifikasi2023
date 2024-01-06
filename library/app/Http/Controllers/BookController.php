@@ -55,25 +55,6 @@ class BookController extends Controller
                 'picture_file' => null
             ]);
         }
-        
-        // Book::create([
-        //     'title' => $request->title,
-        //     'author' => $request->author,
-        //     'genre' => $request->genre,
-        //     'year_publish' => $request->year_publish,
-        //     'synopsis' => $request->synopsis,
-        //     'picture_file' => $request->
-        // ]);
-
-        // foreach($request->file('picture_file') as $file){
-        //     $filename = time().rand(1,200).'.'.$file->extension(); // supaya nama file unique (hasilnya misal 20405757.jpg)
-        //     $file->move(public_path('uploads'),$filename);
-        //     Book::create([
-        //         'book_id' => $armada->id,
-        //         'filename' => $filename
-        //     ]);
-        // };
-
         return redirect('/books')->with('success', 'New Book Successfully Added');
     }
 
@@ -116,15 +97,6 @@ class BookController extends Controller
                 'picture_file' => null
             ]);
         }
-
-        // $book->update([
-        //     'title' => $request->title,
-        //     'author' => $request->author,
-        //     'genre' => $request->genre,
-        //     'year_publish' => $request->year_publish,
-        //     'synopsis' => $request->synopsis
-        // ]);
-
         return redirect('/books')->with('success', 'Changes Saved');
     }
 

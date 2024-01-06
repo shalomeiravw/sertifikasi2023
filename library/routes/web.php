@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 //MEMBERS
 Route::get('/members', [MemberController::class, 'index']); 
-Route::get('/members/create', [MemberController::class, 'create']);
+Route::get('/members/create', [MemberController::class, 'create']); 
 Route::post('/members', [MemberController::class, 'store']);
 Route::get('/members/{id}/edit', [MemberController::class, 'edit']);
 Route::put('/members/{id}', [MemberController::class, 'update']);
@@ -39,7 +39,12 @@ Route::delete('/books/{id}', [BookController::class, 'destroy']);
 
 //LOANS
 Route::get('/loans', [LoanController::class, 'index']);
-Route::get('/loans/create', [LoanController::class, 'create']);
+Route::get('/loans/create3', [LoanController::class, 'create']);
 Route::post('/loans', [LoanController::class, 'store']);
+Route::get('/loans/{id}/edit', [LoanController::class, 'edit']);
+Route::put('/loans/{id}', [LoanController::class, 'update']);
+Route::delete('/loans/{id}', [LoanController::class, 'destroy']);
+
+Route::post('/loans/{id}/return', [LoanController::class, 'returnBook']); //update books table & loans table (book returned)
 
 

@@ -40,7 +40,7 @@
                 <div class="card-header">{{ __('Members') }}</div>
 
                 <div class="card-body">
-                    <table class="table table-hover">
+                    <table class="table">
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
@@ -52,20 +52,12 @@
                                 <td>{{ $m->email }}</td>
                                 <td>{{ $m->phone }}</td>
                                 <td>
-                                    {{-- <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a class="btn btn-warning" href="/members/{{ $m->id }}/edit">Edit</a>
-                                        <form action="/members/{{ $m->id }}" method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <input type="submit" class="btn btn-danger" value="Delete">
-                                        </form>
-                                    </div> --}}
                                     <div class="row">
                                       <div class="col">
                                           <a class="btn btn-warning btn-block" href="/members/{{ $m->id }}/edit">Edit</a>
                                       </div>
                                       <div class="col">
-                                          <form action="/members/{{ $m->id }}" method="POST">
+                                          <form action="/members/{{ $m->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this member?');">
                                               @csrf
                                               @method('delete')
                                               <input type="submit" class="btn btn-danger btn-block" value="Delete">

@@ -6,11 +6,10 @@
 
     <a class="btn btn-info mb-3 mt-3" href="/books/create">+ New Book</a>
     <div class="row justify-content-center">
-        {{-- <div class="col-md-8"> --}}
             <div class="card">
                 <div class="card-header">{{ __('Books') }}</div>
                 <div class="card-body">
-                    <table class="table table-hover">
+                    <table class="table">
                         <tr>
                             <th>Title</th>
                             <th>Author</th>
@@ -37,7 +36,7 @@
                                 <td class="align-middle">
                                     <div class="d-flex justify-content-center" role="group" aria-label="Basic example">
                                         <a class="btn btn-warning mr-3" href="/books/{{ $b->id }}/edit">Edit</a>
-                                        <form action="/books/{{ $b->id }}" method="POST">
+                                        <form action="/books/{{ $b->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?');">
                                             @csrf
                                             @method('delete')
                                             <input type="submit" class="btn btn-danger" value="Delete">

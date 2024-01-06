@@ -2,3 +2,7 @@
     max-height: 200px;
     overflow-y: scroll;
 }
+
+.input-group-append {
+    cursor: pointer;
+  }
