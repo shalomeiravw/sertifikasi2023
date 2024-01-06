@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
     public function dashboard(){
+        //show all books in dashboard
         $book = Book::orderBy('title', 'asc')->get();
         return view('welcome', compact('book'));
     }
@@ -24,6 +25,7 @@ class BookController extends Controller
                         ->get();
             $member = [];
         }else{
+            //when no search, show all books
             $book = Book::with('member')->get();
             $book = Book::orderBy('title', 'asc')->get();
             $member = Member::all();
@@ -31,8 +33,8 @@ class BookController extends Controller
         return view('books.index', compact('book', 'member'));
     }
     
-
     public function create(){
+        //get all book data and pass to create view
         $book = Book::all();
         return view('books.create', compact('book'));
     }
@@ -51,7 +53,7 @@ class BookController extends Controller
             $filename = time().rand(1,200).'.'.$file->extension(); // Unique filename
             $file->move(public_path('uploads'), $filename);
         
-            // Create the book with the image file
+            //create the book with the image file
             Book::create([
                 'title' => $request->title,
                 'author' => $request->author,
@@ -61,7 +63,7 @@ class BookController extends Controller
                 'picture_file' => $filename,
             ]);
         } else {
-            // Create the book without an image file
+            //create the book without an image file
             Book::create([
                 'title' => $request->title,
                 'author' => $request->author,
@@ -71,10 +73,11 @@ class BookController extends Controller
                 'picture_file' => null
             ]);
         }
-        return redirect('/books')->with('success', 'New Book Successfully Added');
+        return redirect('/books')->with('success', 'Book Successfully Added');
     }
 
     public function edit($id){
+        //get the data of the selected book
         $book = Book::find($id);
         return view('books.edit', compact('book'));
     }
@@ -90,10 +93,9 @@ class BookController extends Controller
         $book = Book::find($id);
         if ($request->hasFile('picture_file')) {
             $file = $request->file('picture_file');
-            $filename = time().rand(1,200).'.'.$file->extension(); // Unique filename
-            $file->move(public_path('uploads'), $filename);
+            $filename = $file->storeAs('uploads', 'book_' . $id . '.' . $file->extension(), 'public');
         
-            // Add the book with the image file
+            //add the book with the image file
             $book->update([
                 'title' => $request->title,
                 'author' => $request->author,
@@ -103,7 +105,7 @@ class BookController extends Controller
                 'picture_file' => $filename,
             ]);
         } else {
-            // Add the book without an image file
+            //add the book without an image file
             $book->update([
                 'title' => $request->title,
                 'author' => $request->author,
@@ -118,6 +120,7 @@ class BookController extends Controller
 
     public function destroy($id)
     {
+        //delete delected book
         $book = Book::find($id);
         $book->delete();
         return redirect('/books')->with('success', 'Book Deleted');

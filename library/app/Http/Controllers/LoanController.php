@@ -30,11 +30,13 @@ class LoanController extends Controller
     }
 
     public function create(){
+        //get all loan data and pass to create view
         $loan = Loan::with(['member', 'book'])->get();
-        $member = Member::all();
+        $member = Member::orderBy('name', 'asc')->get();
         $book = Book::where('member_id', null)->get();
+        $book = Book::orderBy('title', 'asc')->get();
 
-        return view('loans.create3', compact('member', 'book', 'loan'));
+        return view('loans.create', compact('member', 'book', 'loan'));
     }
     public function store(Request $request){
         $request->validate(([
@@ -75,6 +77,7 @@ class LoanController extends Controller
             'loan_date' => 'required',
             'due_date' => 'required'
         ]));
+        //update the selected loan
         $loan = Loan::find($id);
         $loan->update([
             'member_id' => $request->member_id,
@@ -98,9 +101,9 @@ class LoanController extends Controller
         //retrieve the book associated with the loan
         $book = Book::where('loan_id', $loan->id)->first();
 
-        // Check if a valid book is retrieved before updating
+        //check if a valid book is retrieved before updating
         if ($book) {
-            // Update the book's member_id and loan_id before deleting the loan
+            //udate the book's member_id and loan_id before deleting the loan
             $book->update([
                 'member_id' => null,
                 'loan_id' => null,

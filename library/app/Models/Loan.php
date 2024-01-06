@@ -11,10 +11,12 @@ class Loan extends Model
 
     protected $guarded = ['id'];
 
+    //relationship with members table
     public function member(){
         return $this->belongsTo(Member::class);
     }
 
+    //relationship with books table
     public function book(){
         return $this->belongsTo(Book::class);
     }

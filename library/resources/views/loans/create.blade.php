@@ -17,74 +17,48 @@
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Member Name</label>
             <div class="dropdown">
-                <select id="selectMember">
+                <select id="selectMember" name="member_id" required>
                     <option value="" selected>Select Name</option>
                     @foreach($member as $m)
-                        <option value="member">{{ $m->name }}</option>
+                        <option value="{{ $m->id }}">{{ $m->name }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Book Title</label>
-            <div class="dropdown">
-                <select id="selectBook">
-                    <option value="" selected>Select Book</option>
-                    @foreach($book as $b)
-                        @if ($b->member_id === null)
-                            <option value="book">{{ $b->title }}</option>
-                        @endif
-                    @endforeach
-                </select>
+            <label for="loanDate" class="form-label">Loan Date</label>
+            <div>
+                <input type="date" id="loanDate" name="loan_date" required>
             </div>
-        </div>
-        <button class="btn btn-dark" type="button">+ Book</button>
-        {{--<div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Member Name</label>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMemberButton" data-bs-toggle="dropdown" aria-expanded="false">
-                Select Name
-                </button>
-                <ul class="dropdown-menu"
-                    aria-labelledby="dropdownMemberButton">
-                    <input type="text"
-                    class="form-control border-0 border-bottom 
-                    shadow-none mb-2" placeholder="Search..."
-                        oninput="handleInput()">
-                </ul>
-                {{-- <ul class="dropdown-menu" id="selected" aria-labelledby="dropdownMember">
-                    @foreach($member as $m)
-                        <li><a class="dropdown-item" href="">{{ $m->name }}</a></li>
-                    @endforeach
-                </ul> --}}
-            {{--</div>
         </div>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Book Title</label>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownBookButton" data-bs-toggle="dropdown" aria-expanded="false">
-                Select Book
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownBook">
-                    @foreach($book as $b)
-                        @if ($b->member_id === null)
-                            <li><a class="dropdown-item" href="">{{ $b->title }}</a></li>
-                        @endif
-                    @endforeach
-                </ul>
+            <label for="returnDue" class="form-label">Return Due</label>
+            <div>
+                <input type="date" id="returnDue" name="due_date" readonly required>
             </div>
-        </div>--}}
-        {{-- <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Author</label>
-            <input type="string" name="author" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        </div> --}}
-        <input type="submit" name="submit" class="btn btn-info" value="Add">
+        </div>  
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Book Title</label>
+            <select id="selectBook" name="book_id" required>
+                <option value="" selected>Select Book</option>
+                    @foreach($book as $b)
+                        <option value="{{ $b->id }}">{{ $b->title }}</option>
+                    @endforeach
+            </select>
+        </div>  
+        
+    </div>
+        <input type="submit" name="submit" class="btn btn-info mt-3 mb-3" value="Add">
     </form>
 </div>
-{{-- <script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    });
-</script> --}}
 
+{{-- js to set the due date automatically according to loan date selection --}}
+<script>
+    document.getElementById('loanDate').addEventListener('change', function() {
+        var loanDate = new Date(this.value);
+        loanDate.setDate(loanDate.getDate() + 7);
+        var formattedDueDate = loanDate.toISOString().substr(0, 10);
+        document.getElementById('returnDue').value = formattedDueDate;
+    });
+</script>
 @endsection

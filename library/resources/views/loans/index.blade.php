@@ -10,7 +10,7 @@
             <button class="btn btn-secondary" type="submit">Search</button>
             </form>
         </div>
-        <a class="btn btn-info mb-3 mt-3" href="/loans/create3">+ Loan</a>
+        <a class="btn btn-info mb-3 mt-3" href="/loans/create">+ Loan</a>
     </div>
     <div class="row justify-content-center">
             <div class="card">
@@ -23,6 +23,7 @@
                             <th>Borrow Date</th>
                             <th>Date Return Due</th>
                             <th>Return Date</th>
+                            <th></th>
                         </tr>
                         @foreach ($loan as $l)
                             <tr @if($l->due_date <= now()->format('Y-m-d') && $l->return_date === null) class="table-danger" @endif>
@@ -31,30 +32,36 @@
                                 <td class="align-middle">{{ $l->loan_date }}</td>
                                 <td class="align-middle">{{ $l->due_date }}</td>
                                 <td class="align-middle col-md-3">{{ $l->return_date }}</td>
-                                <td class="align-middle">
-                                    <div class="d-flex justify-content-center" role="group" aria-label="Basic example">
-                                        <a class="btn btn-warning mr-3" href="/loans/{{ $l->id }}/edit">Edit</a>
-                                        <form action="/loans/{{ $l->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this loan?');">
-                                            @csrf
-                                            @method('delete')
-                                            <input type="submit" class="btn btn-danger" value="Delete">
-                                        </form>
-                                    </div>
+                                <td>
                                     @if ($l->return_date === null)
-                                        <div class="d-flex justify-content-center" role="group" aria-label="Basic example" style="margin-top: 10px">
+                                        <div class="d-flex justify-content-lead" role="group" aria-label="Basic example" style="margin-top: 10px">
                                             <form action="/loans/{{ $l->id }}/return" method="POST" onsubmit="return confirm('Are you sure you want to mark this book as returned?');">
                                                 @csrf
-                                                <button type="submit" class="btn btn-success mr-3">Returned</button>
+                                                <button type="submit" class="btn btn-success mr-3">Return</button>
                                             </form>
                                         </div>
                                     @endif
+                                </td>
+                                <td class="align-middle">
+                                    <div class="row">
+                                        <div class="col">
+                                            <a class="btn btn-warning btn-block" href="/loans/{{ $l->id }}/edit">Edit</a>
+                                        </div>
+                                        <div class="col">
+                                            <form action="/loans/{{ $l->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this member?');">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="submit" class="btn btn-danger btn-block" value="Delete">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
                                 </td>
                             </tr>
                         @endforeach
                     </table>
                 </div>
             </div>
-        {{-- </div> --}}
     </div>
 </div>
 @endsection

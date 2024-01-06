@@ -41,13 +41,17 @@
                                 <td class="align-middle col-md-2">{{ $b->synopsis }}</td>
                                 <td class="align-middle">{{ optional($b->member)->name }}</td>
                                 <td class="align-middle">
-                                    <div class="d-flex justify-content-center" role="group" aria-label="Basic example">
-                                        <a class="btn btn-warning mr-3" href="/books/{{ $b->id }}/edit">Edit</a>
-                                        <form action="/books/{{ $b->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?');">
-                                            @csrf
-                                            @method('delete')
-                                            <input type="submit" class="btn btn-danger" value="Delete">
-                                        </form>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a class="btn btn-warning btn-block" href="/books/{{ $b->id }}/edit">Edit</a>
+                                        </div>
+                                        <div class="col">
+                                            <form action="/books/{{ $b->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this member?');">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="submit" class="btn btn-danger btn-block" value="Delete">
+                                            </form>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>

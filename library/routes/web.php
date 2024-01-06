@@ -40,7 +40,7 @@ Route::middleware(['web', 'auth'])->group(function(){
 
     //LOANS
     Route::get('/loans', [LoanController::class, 'index']);
-    Route::get('/loans/create3', [LoanController::class, 'create']);
+    Route::get('/loans/create', [LoanController::class, 'create']);
     Route::post('/loans', [LoanController::class, 'store']);
     Route::get('/loans/{id}/edit', [LoanController::class, 'edit']);
     Route::put('/loans/{id}', [LoanController::class, 'update']);

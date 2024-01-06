@@ -11,9 +11,11 @@ class Book extends Model
 
     protected $guarded = ['id'];
 
+    //relationship with members table
     public function member(){
         return $this->belongsTo(Member::class);
     }
+    //relationship with loans table
     public function loan(){
         return $this->belongsTo(Loan::class);
     }

@@ -18,17 +18,17 @@ class MemberController extends Controller
         return view('members.index', compact('member'));
     }
     public function create(){
+        //get all members data and pass to create view
         $member = Member::all();
         return view('members.create', compact('member'));
     }
     public function store(Request $request){
-        
         $request->validate([
             'name' => 'required|min:2',
             'email' => 'required | email',
             'phone' => 'required'
         ]);
-        
+        //insert data
         Member::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -39,6 +39,7 @@ class MemberController extends Controller
     }
 
     public function edit($id){
+        //get the selected member data
         $member = Member::find($id);
         return view('members.edit', compact('member'));
     }
@@ -48,6 +49,7 @@ class MemberController extends Controller
             'email' => 'required | email',
             'phone' => 'required'
         ]);
+        //update selected member's data
         $member = Member::find($id);
         $member->update([
             'name' => $request->name,
@@ -60,6 +62,7 @@ class MemberController extends Controller
 
     public function destroy($id)
     {
+        //delete selected member data
         $member = Member::find($id);
         $member->delete();
         return redirect('/members')->with('success', 'Member Deleted');
