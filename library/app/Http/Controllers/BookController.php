@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+    public function dashboard(){
+        $book = Book::orderBy('title', 'asc')->get();
+        return view('welcome', compact('book'));
+    }
+
     public function index(Request $request){
         //search
         $keyword = $request->keyword;

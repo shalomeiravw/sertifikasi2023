@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberController;
+use App\Models\Book;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration;
 
 /*
@@ -17,9 +18,10 @@ use Illuminate\Foundation\Bootstrap\LoadConfiguration;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome', [BookController::class, 'index']);
+// });
+Route::get('/', [BookController::class, 'dashboard']); 
 
 //MEMBERS
 Route::get('/members', [MemberController::class, 'index']); 
